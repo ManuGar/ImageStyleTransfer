@@ -74,7 +74,7 @@ def neural_style_transfer(target_folder_path, style_reference_image_path, output
 	# get_ipython().system('wget "https://3.bp.blogspot.com/-gG2TK3WUCeE/WEwqlahXgkI/AAAAAAAADLY/SRCcdZn0yeUKDFrTDGgLaVnRHwjQcAabgCLcB/s1600/mariposa.jpg" -O mariposas.jpg')
 	#target_folder_path = 'datasetTransformar'
 	#style_reference_image_path = 'datasetOriginal/100.jpg'
-	target_image_path = 'mariposas.jpg'
+	target_image_path = 'mariposa.jpg'
 	width,height = load_img(target_image_path).size
 	img_height=400
 	img_width=int(width*img_height/height)

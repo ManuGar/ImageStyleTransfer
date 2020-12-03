@@ -36,13 +36,13 @@ def generate_images(algo, dataset_name, output_path):
         get_preds_cyclegan(learn,trainA_path,pred_path,suffix='jpg',bs=1)
 
     elif algo == 'nst':
-        image_style = sample(os.listdir(dataset_name+'/trainB'),k=1)
-        style_transfer.neural_style_transfer(dataset_name+'/trainA',image_style, output_path)
+        image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
+        style_transfer.neural_style_transfer('datasets/'+dataset_name+'/trainA',image_style, output_path)
 
     elif algo=='strotss':
         os.system('git clone https://github.com/nkolkin13/STROTSS')
-        images = os.listdir(dataset_name+'/trainA')
-        image_style = sample(os.listdir(dataset_name+'/trainB'),k=1)
+        images = os.listdir('datasets/'+dataset_name+'/trainA')
+        image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
         for image in images:
             os.system('python3 styleTransfer.py ' + image + ' ' +  image_style[0] + ' 1.0 5')
             shutil.move('output.png',output_path+'/'+image)
@@ -52,7 +52,6 @@ def generate_images(algo, dataset_name, output_path):
         os.system('git clone https://github.com/zhengziqiang/ForkGAN')
         shutil.copy('datasets/'+ dataset_name , 'ForkGAN/datasets')
         os.system('cd ForkGAN')
-        shutil.copy('datasets/'+ dataset_name ,output_path)
         os.system('python main.py --phase train --dataset_dir '+ dataset_name+ ' --epoch 20 --gpu 1 --n_d 2 --n_scale 2 --checkpoint_dir ./check/'+dataset_name+' --sample_dir ./check/'+dataset_name + '/sample --L1_lambda 10')
         os.system('python main.py --phase test --dataset_dir '+ dataset_name + ' --gpu 1 --n_d 2 --n_scale 2 --checkpoint_dir ./check/'+dataset_name + ' --test_dir ./check/'+ dataset_name +'/testa2b --which_direction AtoB')
         shutil.rmtree('datasets/'+dataset_name)
