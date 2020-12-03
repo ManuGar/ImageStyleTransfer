@@ -39,14 +39,14 @@ def generate_images(algo, dataset_name, output_path):
 
     elif algo == 'nst':
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
-        style_transfer.neural_style_transfer('datasets/'+dataset_name+'/trainA',image_style[0], output_path)
+        style_transfer.neural_style_transfer('datasets/'+dataset_name+'/trainA','datasets/'+dataset_name+'/trainB/'+image_style[0], output_path)
 
     elif algo=='strotss':
         os.system('git clone https://github.com/nkolkin13/STROTSS')
         images = os.listdir('datasets/'+dataset_name+'/trainA')
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
         for image in images:
-            os.system('python3 styleTransfer.py ' + image + ' ' +  image_style[0] + ' 1.0 5')
+            os.system('python3 styleTransfer.py ' + image + ' ' +  'datasets/'+dataset_name+'/trainB/'+image_style[0] + ' 1.0 5')
             shutil.move('output.png',output_path+'/'+image)
 
     elif algo == 'forkGAN':
