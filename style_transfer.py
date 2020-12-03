@@ -17,6 +17,7 @@ filename = wget.download(url)
 target_image_path = 'mariposa.jpg'
 width, height = load_img(target_image_path).size
 img_width = int(width * img_height / height)
+combination_image = K.placeholder((1, img_height, img_width, 3))
 
 
 def preprocess_image(image_path):
@@ -55,9 +56,10 @@ def total_variation_loss(x):
     return K.sum(K.pow(a+b,1.25))
 
 class Evaluator(object):  
-    def __init__(self):
+    def __init__(self,fetch_loss_and_grads):
         self.loss_value = None
         self.grads_value = None
+		self.fetch_loss_and_grads= fetch_loss_and_grads
     
     def loss(self,x):
         assert self.loss_value is None
@@ -83,7 +85,6 @@ def neural_style_transfer(target_folder_path, style_reference_image_path, output
 	#style_reference_image_path = 'datasetOriginal/100.jpg'
 	target_image = K.variable(preprocess_image(target_image_path))
 	style_reference_image = K.variable(preprocess_image(style_reference_image_path))
-	combination_image = K.placeholder((1,img_height,img_width,3))
 	input_tensor = K.concatenate([target_image,style_reference_image,combination_image],axis=0)
 	model = vgg19.VGG19(input_tensor=input_tensor,weights='imagenet',include_top=False)
 	outputs_dict = dict([(layer.name,layer.output) for layer in model.layers])
@@ -106,7 +107,7 @@ def neural_style_transfer(target_folder_path, style_reference_image_path, output
 	loss += total_variation_weight * total_variation_loss(combination_image)
 	grads = K.gradients(loss,combination_image)[0]
 	fetch_loss_and_grads = K.function([combination_image],[loss,grads])
-	evaluator = Evaluator()
+	evaluator = Evaluator(fetch_loss_and_grads)
 	# result_prefix = 'my_result'
 	iterations = 100
 	imgs = os.listdir(target_folder_path)
