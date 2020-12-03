@@ -27,6 +27,8 @@ def preprocess_image(image_path):
     img = vgg19.preprocess_input(img)
     return img
 
+target_image = K.variable(preprocess_image(target_image_path))
+
 def deprocess_image(x):
     x[:,:,0] += 103.939
     x[:,:,1] += 116.779
@@ -64,7 +66,7 @@ class Evaluator(object):
     def loss(self,x):
         assert self.loss_value is None
         x = x.reshape((1,img_height,img_width,3))
-        outs = fetch_loss_and_grads([x])
+        outs = self.fetch_loss_and_grads([x])
         loss_value = outs[0]
         grad_values = outs[1].flatten().astype('float64')
         self.loss_value = loss_value
@@ -82,7 +84,6 @@ def neural_style_transfer(target_folder_path, style_reference_image_path, output
     # get_ipython().system('wget "https://3.bp.blogspot.com/-gG2TK3WUCeE/WEwqlahXgkI/AAAAAAAADLY/SRCcdZn0yeUKDFrTDGgLaVnRHwjQcAabgCLcB/s1600/mariposa.jpg" -O mariposas.jpg')
 	#target_folder_path = 'datasetTransformar'
 	#style_reference_image_path = 'datasetOriginal/100.jpg'
-	target_image = K.variable(preprocess_image(target_image_path))
     style_reference_image = K.variable(preprocess_image(style_reference_image_path))
     input_tensor = K.concatenate([target_image,style_reference_image,combination_image],axis=0)
     model = vgg19.VGG19(input_tensor=input_tensor,weights='imagenet',include_top=False)
