@@ -3,7 +3,7 @@ import shutil
 import style_transfer
 from random import sample
 
-os.system('pip install git+https://github.com/tmabraham/upit.git >/dev/null')
+os.system('pip install git+https://github.com/tmabraham/UPIT.git')
 from upit.data.unpaired import *
 from upit.models.cyclegan import *
 from upit.train.cyclegan import *
@@ -14,7 +14,7 @@ def set_gpu(gpu_id):
     import torch
     torch.cuda.set_device(gpu_id)
 
-def generate_images(algo, dataset_name, output_path, image_style = None):
+def generate_images(algo, dataset_name, output_path):
     if algo == 'upit':
         trainA_path = Path('datasets/'+dataset_name +'trainA')
         trainB_path = Path('datasets/'+dataset_name +'trainB')
