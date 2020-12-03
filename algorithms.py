@@ -39,7 +39,7 @@ def generate_images(algo, dataset_name, output_path):
 
     elif algo == 'nst':
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
-        style_transfer.neural_style_transfer('datasets/'+dataset_name+'/trainA',image_style, output_path)
+        style_transfer.neural_style_transfer('datasets/'+dataset_name+'/trainA',image_style[0], output_path)
 
     elif algo=='strotss':
         os.system('git clone https://github.com/nkolkin13/STROTSS')
