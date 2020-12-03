@@ -4,11 +4,6 @@ import style_transfer
 from random import sample
 
 os.system('pip install git+https://github.com/tmabraham/UPIT.git')
-from upit.data.unpaired import *
-from upit.models.cyclegan import *
-from upit.train.cyclegan import *
-from upit.inference.cyclegan import *
-from fastai.vision.all import *
 
 def set_gpu(gpu_id):
     import torch
@@ -16,6 +11,13 @@ def set_gpu(gpu_id):
 
 def generate_images(algo, dataset_name, output_path):
     if algo == 'upit':
+        from upit.models.cyclegan import CycleGAN
+        from upit.data.unpaired import get_dls
+        from upit.inference.cyclegan import cycle_learner
+        from fastai.vision.all import *
+        from upit.train.cyclegan import cycle_learner, fit_flat_lin, combined_flat_anneal, ShowCycleGANImgsCallback, \
+            CycleGANTrainer, CycleGANLoss
+
         trainA_path = Path('datasets/'+dataset_name +'trainA')
         trainB_path = Path('datasets/'+dataset_name +'trainB')
         set_gpu(0)
