@@ -14,7 +14,7 @@ def generate_images(algo, dataset_name, output_path):
         from upit.models.cyclegan import CycleGAN
         from upit.data.unpaired import get_dls
         from upit.inference.cyclegan import cycle_learner
-        from fastai.vision.all import *
+        from fastai.vision.all import partial
         from upit.train.cyclegan import cycle_learner, fit_flat_lin, combined_flat_anneal, ShowCycleGANImgsCallback, \
             CycleGANTrainer, CycleGANLoss
 
