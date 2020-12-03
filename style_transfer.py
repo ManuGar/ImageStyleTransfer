@@ -16,6 +16,8 @@ url = "https://3.bp.blogspot.com/-gG2TK3WUCeE/WEwqlahXgkI/AAAAAAAADLY/SRCcdZn0ye
 filename = wget.download(url)
 target_image_path = 'mariposa.jpg'
 width, height = load_img(target_image_path).size
+img_width = int(width * img_height / height)
+
 
 def preprocess_image(image_path):
     img = load_img(image_path,target_size=(img_height,img_width))
@@ -79,7 +81,6 @@ def neural_style_transfer(target_folder_path, style_reference_image_path, output
 	# get_ipython().system('wget "https://3.bp.blogspot.com/-gG2TK3WUCeE/WEwqlahXgkI/AAAAAAAADLY/SRCcdZn0yeUKDFrTDGgLaVnRHwjQcAabgCLcB/s1600/mariposa.jpg" -O mariposas.jpg')
 	#target_folder_path = 'datasetTransformar'
 	#style_reference_image_path = 'datasetOriginal/100.jpg'
-	img_width=int(width*img_height/height)
 	target_image = K.variable(preprocess_image(target_image_path))
 	style_reference_image = K.variable(preprocess_image(style_reference_image_path))
 	combination_image = K.placeholder((1,img_height,img_width,3))
