@@ -47,8 +47,8 @@ def generate_images(algo, dataset_name, output_path):
         images = os.listdir('datasets/'+dataset_name+'/trainA')
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
         for image in images:
-            os.system('python3 strotss/styleTransfer.py ' + image + ' datasets/'+dataset_name+'/trainB/'+image_style[0] + ' 1.0 5')
-            shutil.move('strotss/output.png',output_path+'/'+image)
+            os.system('python3 STROTSS/styleTransfer.py ' + image + ' datasets/'+dataset_name+'/trainB/'+image_style[0] + ' 1.0 5')
+            shutil.move('STROTSS/output.png',output_path+'/'+image)
 
     elif algo == 'forkGAN':
         set_gpu(0)
