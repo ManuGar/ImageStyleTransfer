@@ -3,7 +3,6 @@ import shutil
 from random import sample
 from pathlib import Path
 import sys
-
 os.system('pip install git+https://github.com/tmabraham/UPIT.git')
 
 def set_gpu(gpu_id):
@@ -16,7 +15,6 @@ def generate_images(algo, dataset_name, output_path):
         from upit.data.unpaired import get_dls
         from upit.inference.cyclegan import cycle_learner
         from fastai.vision.all import partial
-        import wget
         from upit.train.cyclegan import cycle_learner, fit_flat_lin, combined_flat_anneal, ShowCycleGANImgsCallback, \
             CycleGANTrainer, CycleGANLoss
 
@@ -35,7 +33,6 @@ def generate_images(algo, dataset_name, output_path):
         # model = torch.load('models/upitModel.pth')
         learn.lr_find()
         learn.fit_flat_lin(7,7,2e-4)
-        if os.path.exists('models/upitModel.pth'): os.remove('models/upitModel.pth')
         export_generator(learn, generator_name='models/upitModel')
         assert os.path.exists('models/upitModel.pth')
         #pred_path = '../GenerateDatasetCycleGAN/'
