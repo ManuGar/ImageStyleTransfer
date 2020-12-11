@@ -2,6 +2,7 @@ import os
 import shutil
 from random import sample
 from pathlib import Path
+import sys
 
 os.system('pip install git+https://github.com/tmabraham/UPIT.git')
 
@@ -15,17 +16,23 @@ def generate_images(algo, dataset_name, output_path):
         from upit.data.unpaired import get_dls
         from upit.inference.cyclegan import cycle_learner
         from fastai.vision.all import partial
+        import wget
         from upit.train.cyclegan import cycle_learner, fit_flat_lin, combined_flat_anneal, ShowCycleGANImgsCallback, \
             CycleGANTrainer, CycleGANLoss
 
-        trainA_path = Path('datasets/'+dataset_name +'trainA')
-        trainB_path = Path('datasets/'+dataset_name +'trainB')
+        trainA_path = Path('datasets/'+dataset_name +'/trainA')
+        trainB_path = Path('datasets/'+dataset_name +'/trainB')
         set_gpu(0)
         print(f"There are {len(trainA_path.ls())} photos to tranfer to the original style")
         print(f"There are {len(trainB_path.ls())} Original style")
         dls = get_dls(trainA_path, trainB_path,load_size=256,crop_size=256,bs=4)
-        cycle_gan = CycleGAN(3,3,64,gen_blocks=3)
-        learn = cycle_learner(dls, cycle_gan,opt_func=partial(Adam,mom=0.5,sqr_mom=0.999),show_img_interval=8)
+        # cycle_gan = CycleGAN(3,3,64,gen_blocks=3)
+        # learn = cycle_learner(dls, cycle_gan,opt_func=partial(Adam,mom=0.5,sqr_mom=0.999),show_img_interval=8)
+        cycle_gan = CycleGAN(3, 3, 64, gen_blocks=3)
+
+        cycle_gan.G_B.load_state_dict(torch.load('models/upitModel.pth'))
+        learn = cycle_learner(dls, cycle_gan)
+        # model = torch.load('models/upitModel.pth')
         learn.lr_find()
         learn.fit_flat_lin(7,7,2e-4)
         if os.path.exists('models/upitModel.pth'): os.remove('models/upitModel.pth')
@@ -44,6 +51,7 @@ def generate_images(algo, dataset_name, output_path):
 
     elif algo=='strotss':
         os.system('git clone https://github.com/nkolkin13/STROTSS')
+        sys.path.insert('STROTSS')
         images = os.listdir('datasets/'+dataset_name+'/trainA')
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
         for image in images:
