@@ -53,12 +53,13 @@ def generate_images(algo, dataset_name, output_path):
         os.system('git clone https://github.com/joheras/STROTSS')
         abs_path_strotss = os.path.abspath('STROTSS')
         sys.path.insert(0, abs_path_strotss)
+        # shutil.copytree('datasets/' + dataset_name, 'STROTSS/datasets/'+dataset_name)
 
         images = os.listdir('datasets/'+dataset_name+'/trainA')
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
         for image in images:
-            os.system('cd STROTSS; python3 styleTransfer.py ' + image + ' datasets/'+dataset_name+'/trainB/'+image_style[0] + ' 1.0 5')
-            shutil.move('STROTSS/output.png',output_path+'/'+image)
+            os.system('cd STROTSS; python3 styleTransfer.py ../datasets/' + dataset_name + '/trainA/' + image + ' ../datasets/'+dataset_name+'/trainB/'+image_style[0] + ' 1.0 5 output.png')
+            shutil.move('STROTSS/output.png',output_path+'/'+image[:image.rfind('.')]+'.png')
 
     elif algo == 'forkGAN':
         # set_gpu(0)
