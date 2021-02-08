@@ -59,6 +59,7 @@ def generate_images(algo, dataset_name, output_path):
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
         for image in images:
             os.system('cd STROTSS; python3 styleTransfer.py ../datasets/' + dataset_name + '/trainA/' + image + ' ../datasets/'+dataset_name+'/trainB/'+image_style[0] + ' 1.0 5 output.png')
+            print(image[:image.rfind('.')]+'.png')
             shutil.move('STROTSS/output.png',output_path+'/'+image[:image.rfind('.')]+'.png')
 
     elif algo == 'forkGAN':
@@ -123,9 +124,8 @@ def generate_images(algo, dataset_name, output_path):
         shutil.move('CUT/datasets/' + dataset_name + '/trainB', 'CUT/datasets/' + dataset_name + '/testB')
         shutil.copytree('CUT/datasets/' + dataset_name + '/testB', 'CUT/datasets/' + dataset_name + '/trainB')
         shutil.copytree('CUT/datasets/' + dataset_name + '/testA', 'CUT/datasets/' + dataset_name + '/trainA')
-        # os.system('cd CUT')
-        os.system('cd CUT;python CUT/train.py --dataroot ./datasets/' + dataset_name + ' --name '+ dataset_name + '_CUT --CUT_mode CUT')
-        os.system('cd CUT;python CUT/test.py --dataroot ./datasets/' + dataset_name + ' --name ' + dataset_name + '_CUT --CUT_mode CUT --phase train')
+        os.system('python CUT/train.py --dataroot ./datasets/' + dataset_name + ' --name '+ dataset_name + '_CUT --CUT_mode CUT')
+        os.system('python CUT/test.py --dataroot ./datasets/' + dataset_name + ' --name ' + dataset_name + '_CUT --CUT_mode CUT --phase train')
         shutil.move('CUT/results/'+ dataset_name + '_CUT/fake_B',output_path)
         shutil.rmtree('datasets/'+dataset_name)
         # os.system('cd ..')
@@ -138,8 +138,8 @@ def generate_images(algo, dataset_name, output_path):
         shutil.move('CUT/datasets/' + dataset_name + '/trainB', 'CUT/datasets/' + dataset_name + '/testB')
         shutil.copytree('CUT/datasets/' + dataset_name + '/testB', 'CUT/datasets/' + dataset_name + '/trainB')
         shutil.copytree('CUT/datasets/' + dataset_name + '/testA', 'CUT/datasets/' + dataset_name + '/trainA')
-        os.system('cd CUT;python CUT/train.py --dataroot ' + dataset_name + ' --name '+dataset_name+ '_FastCUT --CUT_mode FastCUT')
-        os.system('cd CUT;python CUT/test.py --dataroot ' + dataset_name + ' --name '+ dataset_name+ '_FastCUT --CUT_mode FastCUT --phase train')
+        os.system('cd CUT;python train.py --dataroot ./datasets/' + dataset_name + ' --name '+dataset_name+ '_FastCUT --CUT_mode FastCUT')
+        os.system('cd CUT;python test.py --dataroot ./datasets/' + dataset_name + ' --name '+ dataset_name+ '_FastCUT --CUT_mode FastCUT --phase train')
         shutil.move('CUT/results/'+ dataset_name + '_FastCUT/fake_B',output_path)
         shutil.rmtree('datasets/'+dataset_name)
         # os.system('cd ..')
