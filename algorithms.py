@@ -126,7 +126,7 @@ def generate_images(algo, dataset_name, output_path):
         shutil.copytree('CUT/datasets/' + dataset_name + '/testA', 'CUT/datasets/' + dataset_name + '/trainA')
         os.system('python CUT/train.py --dataroot ./datasets/' + dataset_name + ' --name '+ dataset_name + '_CUT --CUT_mode CUT')
         os.system('python CUT/test.py --dataroot ./datasets/' + dataset_name + ' --name ' + dataset_name + '_CUT --CUT_mode CUT --phase train')
-        shutil.move('CUT/results/'+ dataset_name + '_CUT/fake_B',output_path)
+        shutil.move('CUT/results/'+ dataset_name + '_CUT/train_latest/images/fake_B',output_path)
         shutil.rmtree('datasets/'+dataset_name)
         # os.system('cd ..')
 
@@ -140,7 +140,7 @@ def generate_images(algo, dataset_name, output_path):
         shutil.copytree('CUT/datasets/' + dataset_name + '/testA', 'CUT/datasets/' + dataset_name + '/trainA')
         os.system('cd CUT;python train.py --dataroot ./datasets/' + dataset_name + ' --name '+dataset_name+ '_FastCUT --CUT_mode FastCUT')
         os.system('cd CUT;python test.py --dataroot ./datasets/' + dataset_name + ' --name '+ dataset_name+ '_FastCUT --CUT_mode FastCUT --phase train')
-        shutil.move('CUT/results/'+ dataset_name + '_FastCUT/fake_B',output_path)
+        shutil.move('CUT/results/'+ dataset_name + '_FastCUT/train_latest/images/fake_B',output_path)
         shutil.rmtree('datasets/'+dataset_name)
         # os.system('cd ..')
 
