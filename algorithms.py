@@ -1,5 +1,6 @@
 import os
 import shutil
+import wget
 from random import sample
 from pathlib import Path
 import sys
@@ -30,6 +31,7 @@ def generate_images(algo, dataset_name, output_path):
         # cycle_gan = CycleGAN(3,3,64,gen_blocks=3)
         # learn = cycle_learner(dls, cycle_gan,opt_func=partial(Adam,mom=0.5,sqr_mom=0.999),show_img_interval=8)
         cycle_gan = CycleGAN(3, 3, 64, gen_blocks=3)
+        wget.download("https://unirioja-my.sharepoint.com/:u:/g/personal/magarcd_unirioja_es/EWeLhprfEWZLq5gOUWCMGMMBIxGFz092f498BZFA2b74mQ?download=1", "upitModel.pth")
 
         cycle_gan.G_B.load_state_dict(torch.load('upitModel.pth'))
         learn = cycle_learner(dls, cycle_gan)
