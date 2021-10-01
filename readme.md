@@ -15,3 +15,4 @@ There are a list of algorithms available to transfer image style divided into tw
     - ganilla (GANILLA): https://github.com/giddyyupp/ganilla
     - CUT: https://github.com/taesungp/contrastive-unpaired-translation
     - fastCUT (FastCUT): https://github.com/taesungp/contrastive-unpaired-translation
+    - dia (Deep Image Analogy): https://github.com/harveyslash/Deep-Image-Analogy-PyTorch
