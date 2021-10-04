@@ -154,8 +154,8 @@ def generate_images(algo, dataset_name, output_path):
         images = paths.list_images('datasets/' + dataset_name + '/trainA')
         image_style = sample(os.listdir('datasets/'+dataset_name+'/trainB'),k=1)
         for image in images:
-            os.system('cd Deep-Image-Analogy-PyTorch/src; python Deep-Img-Analogy.py '+ str('../../'+ image) + ' ' + str('../../datasets/'+dataset_name+'/trainB/' + image_style[0]) + ' ../salida/output.jpg')
-            shutil.move('Deep-Image-Analogy-PyTorch/salida/output.jpg',output_path+'/'+image[image.rfind('/')+1:image.rfind('.')]+'.jpg')
+            os.system('cd Deep-Image-Analogy-PyTorch/src; python Deep-Img-Analogy.py '+ str('../../'+ image) + ' ' + str('../../datasets/'+dataset_name+'/trainB/' + image_style[0]) + ' ../salida/'+image[image.rfind('/')+1:])
+            shutil.move('Deep-Image-Analogy-PyTorch/salida/'+image[image.rfind('/')+1:],output_path+'/'+image[image.rfind('/')+1:image.rfind('.')]+'.jpg')
     else:
         print('error')
 
