@@ -5,12 +5,12 @@ The dataset have to be inside a folder called datasets and divided onto trainA a
 
 
 There are a list of algorithms available to transfer image style divided into two different ways:
-- Style transfer:
+- Style transfer based  on CNNs:
     - nst (Neural Style Transfer): Included in this project
     - strotss (STROTSS): https://github.com/nkolkin13/STROTSS
     - dia (Deep Image Analogy): https://github.com/harveyslash/Deep-Image-Analogy-PyTorch
 
-- Unpaired image-to-image translation:
+- style transfer based  on GANs:
     - upit (CycleGAN): https://github.com/tmabraham/upit.git
     - dualGAN (DualGAN):  https://github.com/duxingren14/DualGAN
     - forkGAN (ForkGAN): https://github.com/zhengziqiang/ForkGAN
