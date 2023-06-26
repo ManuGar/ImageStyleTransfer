@@ -7,6 +7,7 @@ import subprocess
 from imutils import paths
 import cv2
 
+
 os.system('pip install git https://github.com/tmabraham/UPIT.git')
 
 def set_gpu(gpu_id):
