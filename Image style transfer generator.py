@@ -21,11 +21,9 @@
 
 # In[1]:
 
-
 algorithm = 'dia'
 dataset_name = 'messidor'
 output_path = 'messidor_dia'
-
 
 # In[2]:
 
